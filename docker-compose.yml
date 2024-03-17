@@ -1,0 +1,37 @@
+version: "3"
+services:
+  postgres:
+    image: library/postgres:14
+    container_name: postgres
+    restart: on-failure
+    environment:
+      POSTGRES_USER: ilyasov
+      POSTGRES_PASSWORD: "kukarek89"
+      POSTGRES_DB: filmoteka
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/10_init.sql
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+#
+#  filmoteka:
+#    container_name: filmoteka
+#    build:
+#      context: ./
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - postgres
+#    links:
+#      - postgres
+#    restart: on-failure
+#    environment:
+#      PORT: "8080"
+#      DB_HOST: "postgres"
+#      DB_PORT: "5432"
+#      DB_USER: "ilyasov"
+#      DB_PASS: "kukarek89"
+#      DB_NAME: "filmoteka"
+
+volumes:
+  db-data:
